@@ -1,0 +1,42 @@
+name: "dotnet-format"
+
+description: "Run dotnet format and optionally apply any fixes"
+
+author: "xt0rted"
+
+branding:
+  icon: "file-text"
+  color: "purple"
+
+inputs:
+  repo-token:
+    description: "GITHUB_TOKEN token or a repo scoped PAT"
+    required: true
+    default: ${{ github.token }}
+
+  version:
+    description: "Version of dotnet-format to use"
+    required: true
+    default: "3"
+
+  action:
+    description: "Primary action dotnet-format should perform (check for errors or apply fixes)"
+    required: true
+    default: "check"
+
+  only-changed-files:
+    description: "Only changed files in the current pull request should be formatted"
+    required: false
+
+  fail-fast:
+    description: "The job should fail if there's a formatting error"
+    required: false
+    default: "true"
+
+outputs:
+  has-changes:
+    description: "A value indicating if any files were formatted"
+
+runs:
+  using: "node12"
+  main: "dist/index.js"

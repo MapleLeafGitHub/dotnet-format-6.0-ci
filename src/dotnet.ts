@@ -43,6 +43,8 @@ async function formatVersion3(options: FormatOptions): Promise<boolean> {
     dotnetFormatOptions.push("--verify-no-changes");
   }
 
+  dotnetFormatOptions.push("whitespace");
+
   if (formatOnlyChangedFiles(options.onlyChangedFiles)) {
     const filesToCheck = await getPullRequestFiles();
 
@@ -54,7 +56,7 @@ async function formatVersion3(options: FormatOptions): Promise<boolean> {
       return false;
     }
 
-    dotnetFormatOptions.push("--files", filesToCheck.join(","));
+    dotnetFormatOptions.push("--include", filesToCheck.join(","));
   }
 
   const dotnetPath: string = await which("dotnet", true);
